@@ -23,7 +23,12 @@ io.on('connection', function(socket) {
     console.log('El Usiario  con IP: '+socket.handshake.address+" se a conectado...");
 
     socket.emit('messages', messages);
-})
+
+    socket.on('add-message', function (data){
+       messages.push(data);
+       io.sockets.emit('messages', messages); 
+    });
+});
 
 // Activate the server
 server.listen(6677, function () {
